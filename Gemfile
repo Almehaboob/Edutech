@@ -21,6 +21,8 @@ gem "jbuilder"
 gem 'font-awesome-rails'
 gem 'simple_form'
 gem 'faker'
+gem 'devise'
+
 
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
