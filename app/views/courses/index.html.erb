@@ -1,0 +1,32 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Courses" %>
+
+<h1>Courses</h1>
+
+<div id="courses text align center ">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Course Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @courses.each do |course| %>
+        <tr>
+          <td><%= course.title %></td>
+          <td><%= course.description%></td>
+
+          <td>
+            <%= link_to "Show", course, class:"btn btn-secondary" %> |
+            <%= link_to "Edit", edit_course_path(course), class:"btn btn-warning" %> |
+            <%= link_to "Destroy", course, method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-danger"%>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to "New course", new_course_path, class: "btn btn-primary" %>

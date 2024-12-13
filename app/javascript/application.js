@@ -2,3 +2,8 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 import "bootstrap"
+
+import "trix"
+import "@rails/actiontext"
+require("trix")
+require("@rails/actiontext")
