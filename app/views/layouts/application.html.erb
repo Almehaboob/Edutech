@@ -22,9 +22,14 @@
   </head>
 
   <body> 
-    <%= render "layouts/navbar" %>
+    
+    <%= render "layouts/messages" %>
     <div>
-      <%= yield %>
+      <% if current_user %>
+      <%= render "layouts/navbar" %>
+      <% end%>
+
+      <%= yield %>  
     </div>
     
   </body>

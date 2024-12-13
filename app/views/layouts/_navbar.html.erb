@@ -1,45 +1,73 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">EduTech</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- Home Link -->
         <li class="nav-item">
-          <a class="nav-link"  href="#">Home</a>
-        </li>
-        <li class="nav-item">
-         <%= link_to 'courses', courses_path, class:"nav-link "%>
+          <%= link_to home_home_path, class: 'nav-link' do %>
+            <i class="fas fa-home"></i> Home
+          <% end %>
         </li>
 
-         <li class="nav-item dropdown">
+        <!-- Courses Link -->
+        <li class="nav-item">
+          <%= link_to courses_path, class: 'nav-link' do %>
+            <i class="fas fa-book"></i> Courses
+          <% end %>
+        </li>
+
+        <!-- Dropdown -->
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown link
+            <i class="fas fa-bars"></i> Dropdown
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-play"></i> Action</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Another action</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-ellipsis-h"></i> Something else here</a></li>
           </ul>
         </li>
 
-       <% if current_user %>
-       <%= current_user.email %>
-       <%= link_to 'Account settings', edit_user_registration_path %>
-       <%= link_to 'Logout', destroy_user_session_path, data: {turbo_method: :delete} , class: 'nav-link' %>
-       <% else %>
-       <%= link_to 'Sign Up', new_user_registration_path %>
-       <%= link_to 'Log In', new_user_session_path %>
-       <% end %>
-
+        <% if current_user %>
+        <!-- User Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user"></i> <%= current_user.email %>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li>
+              <%= link_to edit_user_registration_path, class: 'dropdown-item' do %>
+                <i class="fas fa-cog"></i> Account Settings
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: 'dropdown-item' do %>
+                <i class="fas fa-sign-out-alt"></i> Logout
+              <% end %>
+            </li>
+          </ul>
+        </li>
+        <% else %>
+        <!-- Sign Up / Log In -->
+        <li class="nav-item">
+          <%= link_to 'Sign Up', new_user_registration_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Log In', new_user_session_path, class: 'nav-link' %>
+        </li>
+        <% end %>
       </ul>
 
-
-
+      <!-- Search Form -->
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-success" type="submit">
+          <i class="fas fa-search"></i> Search
+        </button>
       </form>
     </div>
   </div>

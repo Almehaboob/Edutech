@@ -1,5 +1,95 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
-<button class="btn btn-primary">Test Button</button>
-<i class="fa fa-home"></i>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edutech</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
 
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <style>
+    /* Body and background image */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: url('https://w0.peakpx.com/wallpaper/936/144/HD-wallpaper-lofi-anime-girl-anime-girl-studying.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    /* Overlay to make text readable */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 0;
+    }
+
+    /* Container for text and button */
+    .landing-container {
+      text-align: center;
+      z-index: 1;
+      padding: 20px;
+      max-width: 600px;
+      background: rgba(0, 0, 0, 0.5); /* Dark overlay for content */
+      border-radius: 10px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .btn-login {
+      background-color: #007bff;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-login:hover {
+      background-color: #0056b3;
+      text-decoration: none;
+    }
+
+    .fa {
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+
+
+    <div class="landing-container">
+     <h1>Welcome to Edutech</h1>
+     <p>Your gateway to interactive learning and growth.</p>
+    <%= link_to new_user_session_path, class: 'btn-login' do %>
+    <i class="fas fa-sign-in-alt"></i> Log In
+    <% end %>
+    </div>
+
+</body>
+</html>
