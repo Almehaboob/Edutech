@@ -9,7 +9,9 @@
     <thead>
       <tr>
         <th>Course Name</th>
-        <th>Actions</th>
+         <th>description</th>
+        <th>User</th>
+         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -17,6 +19,7 @@
         <tr>
           <td><%= course.title %></td>
           <td><%= course.description%></td>
+          <td><%= course.user%></td>
 
           <td>
             <%= link_to "Show", course, class:"btn btn-secondary" %> |
