@@ -5,5 +5,6 @@ Rails.application.routes.draw do
 
   root "home#index"
   get 'home/home'
+  get 'home/activity'
 
 end

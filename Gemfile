@@ -23,6 +23,7 @@ gem 'simple_form'
 gem 'faker'
 gem 'devise'
 gem 'ransack'
+gem 'public_activity'
 
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]

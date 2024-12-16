@@ -3,7 +3,7 @@
 
 # Seed Courses
 
-30.times do
+100.times do
   Course.create!({
     title: Faker::Educator.course_name,
     description: Faker::JapaneseMedia::OnePiece.quote,

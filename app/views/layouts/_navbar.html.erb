@@ -34,7 +34,11 @@
             <i class="fas fa-bars"></i> Dropdown
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#"><i class="fas fa-play"></i> Action</a></li>
+            <li class="nav-item">
+            <%= link_to home_activity_path, class: 'dropdown-item' do %>
+            <i class="fas fa-bell"></i> Activity
+            <% end %>
+            </li>
             <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Another action</a></li>
             <li><a class="dropdown-item" href="#"><i class="fas fa-ellipsis-h"></i> Something else here</a></li>
           </ul>
