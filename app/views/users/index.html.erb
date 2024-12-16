@@ -1,7 +1,63 @@
-<div class="row">
-  <% @users.each do |user| %>
-    <div class="col-md-4 mb-4">
-      <%= render 'users/user', user: user %> <!-- This will render the partial for each user -->
+<div class="container mt-4">
+  <!-- Search Form -->
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <%= search_form_for @q, html: { class: 'form-inline' } do |f| %>
+        <div class="form-group mr-2">
+          <%= f.search_field :email_cont, placeholder: 'Email', class: 'form-control' %>
+        </div>
+        <div class="form-group mr-2">
+          <%= f.search_field :sign_in_count_eq, placeholder: 'Sign in count', class: 'form-control' %>
+        </div>
+        <div class="form-group mr-2">
+          <%= f.search_field :email_or_sign_in_count_eq, placeholder: 'Email or sign in count', class: 'form-control' %>
+        </div>
+        <%= f.submit 'Search', class: 'btn btn-primary' %>
+      <% end %>
+
+      <!-- Refresh Button -->
+      <div class="ml-2 mt-3">
+        <%= link_to 'Refresh', users_path, class: 'btn btn-secondary' %>
+      </div>
     </div>
-  <% end %>
+  </div>
+
+  <!-- User Cards -->
+  <div class="card-columns mb-4">
+    <% @users.each do |user| %>
+      <%= render 'users/user', user: user %>
+    <% end %>
+  </div>
+
+  <!-- User Data Table -->
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>id</th>
+          <th><%= sort_link(@q, :email) %></th>
+          <th>Created at</th>
+          <th><%= 'sign_in_count'.humanize %></th>
+          <th><%= 'current_sign_in_at'.humanize %></th>
+          <th><%= 'last_sign_in_at'.humanize %></th>
+          <th><%= 'current_sign_in_ip'.humanize %></th>
+          <th><%= 'last_sign_in_ip'.humanize %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.id %></td>
+            <td><%= user.email %></td>
+            <td><%= user.created_at %></td>
+            <td><%= user.sign_in_count %></td>
+            <td><%= user.current_sign_in_at %></td>
+            <td><%= user.last_sign_in_at %></td>
+            <td><%= user.current_sign_in_ip %></td>
+            <td><%= user.last_sign_in_ip %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

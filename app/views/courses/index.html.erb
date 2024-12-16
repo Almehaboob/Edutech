@@ -2,45 +2,70 @@
 
 <% content_for :title, "Courses" %>
 
-<h1>Courses</h1>
+<h1 class="text-center mb-4">Courses</h1>
 
-<div class="text-center">
-  <%= link_to "New course", new_course_path, class: "btn btn-primary" %>
+<!-- Search Form -->
+<div class="row justify-content-center mb-4">
+  <div class="col-md-10">
+    <%= search_form_for @q, html: { class: 'form-inline justify-content-center bg-light p-3 rounded shadow-sm' } do |f| %>
+      <div class="form-group mx-2">
+        <%= f.search_field :title_cont, placeholder: 'Course Title', class: 'form-control form-control-sm' %>
+      </div>
+      <div class="form-group mx-2">
+        <%= f.search_field :languaes_cont, placeholder: 'Languages', class: 'form-control form-control-sm' %>
+      </div>
+      <div class="form-group mx-2">
+        <%= f.search_field :level_cont, placeholder: 'Level', class: 'form-control form-control-sm' %>
+      </div>
+      <div class="form-group mx-2">
+        <%= f.search_field :price_eq, placeholder: 'Price', class: 'form-control form-control-sm' %>
+      </div>
+      <div class="  d-flex justify-content-between">
+      <%= f.submit 'Search', class: 'btn btn-success btn-sm m-2 ml-5' %>
+      <%= link_to 'Add Course', new_course_path, class: 'btn btn-dark btn-sm m-2 ml-5' %>
+      </div>
+    <% end %>
+  </div>
 </div>
 
-<div class="row mt-4">
+<!-- Display Courses -->
+<div class="row">
   <% @courses.each do |course| %>
-    <div class="col-md-4 mb-4">
-      <div class="card">
-        <div class="card-header">
-          <strong><%= course.title %></strong>
+    <div class="col-lg-2 col-md-4 col-sm-6 mb-4 d-flex align-items-stretch">
+      <div class="card border-0 shadow-sm" style="width: 100%; min-height: 300px;">
+        <div class="card-header bg-secondary text-white p-2 text-center" style="font-size: 0.9rem;">
+          <strong><%= truncate(course.title, length: 25) %></strong>
         </div>
-        <div class="card-body">
-          <p><%= course.description %></p>
-          <p>
-            <i class="fa fa-chalkboard-teacher"></i> <%= course.user %>
+        <div class="card-body p-3" style="font-size: 0.85rem;">
+          <p class="text-muted" style="height: 60px; overflow: hidden;">
+            <%= truncate(course.description.to_plain_text, length: 100) %>
+          </p>
+          <p class="mb-2">
+            <i class="fa fa-user"></i> <%= course.user.email %>
           </p>
 
-          <!-- Languages Field with Font Awesome icon -->
           <% if course.languaes.present? %>
-            <p><i class="fa fa-language"></i> <strong>Languages:</strong> <%= course.languaes %></p>
+            <p class="mb-1">
+              <i class="fa fa-language"></i> <strong>Languages:</strong> <%= course.languaes %>
+            </p>
           <% end %>
 
-          <!-- Level Field with Font Awesome icon -->
           <% if course.level.present? %>
-            <p><i class="fa fa-cogs"></i> <strong>Level:</strong> <%= course.level %></p>
+            <p class="mb-1">
+              <i class="fa fa-cogs"></i> <strong>Level:</strong> <%= course.level %>
+            </p>
           <% end %>
 
-          <!-- Price Field with Font Awesome icon -->
           <% if course.price.present? %>
-            <p><i class="fa fa-dollar-sign"></i> <strong>Price:</strong> <%= number_to_currency(course.price) %></p>
+            <p>
+              <i class="fa fa-dollar-sign"></i> <strong>Price:</strong> <%= number_to_currency(course.price) %>
+            </p>
           <% end %>
-
         </div>
-        <div class="card-footer d-flex justify-content-between">
-          <%= link_to "Show", course, class: "btn btn-sm btn-secondary" %>
-          <%= link_to "Edit", edit_course_path(course), class: "btn btn-sm btn-warning" %>
-          <%= link_to "Destroy", course, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+        <div class="card-footer p-2 d-flex justify-content-between">
+          <%= link_to "Show", course, class: "btn btn-sm btn-outline-secondary" %>
+          <%= link_to "Edit", edit_course_path(course), class: "btn btn-sm btn-outline-warning" %>
+          <%= link_to "Destroy", course, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-outline-danger" %>
         </div>
       </div>
     </div>

@@ -3,7 +3,8 @@ class CoursesController < ApplicationController
 
   # GET /courses or /courses.json
   def index
-    @courses = Course.all
+    @q = Course.ransack(params[:q])  # Initialize the search object
+    @courses = @q.result(distinct: true)  # Get the results of the search
   end
 
   # GET /courses/1 or /courses/1.json
