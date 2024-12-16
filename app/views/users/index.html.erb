@@ -1,0 +1,7 @@
+<div class="row">
+  <% @users.each do |user| %>
+    <div class="col-md-4 mb-4">
+      <%= render 'users/user', user: user %> <!-- This will render the partial for each user -->
+    </div>
+  <% end %>
+</div>

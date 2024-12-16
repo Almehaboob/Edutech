@@ -4,32 +4,29 @@
 
 <h1>Courses</h1>
 
-<div id="courses text align center ">
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Course Name</th>
-         <th>description</th>
-        <th>User</th>
-         <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @courses.each do |course| %>
-        <tr>
-          <td><%= course.title %></td>
-          <td><%= course.description%></td>
-          <td><%= course.user%></td>
-
-          <td>
-            <%= link_to "Show", course, class:"btn btn-secondary" %> |
-            <%= link_to "Edit", edit_course_path(course), class:"btn btn-warning" %> |
-            <%= link_to "Destroy", course, method: :delete, data: { confirm: "Are you sure?" }, class:"btn btn-danger"%>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<div class="text-center">
+  <%= link_to "New course", new_course_path, class: "btn btn-primary" %>
 </div>
 
-<%= link_to "New course", new_course_path, class: "btn btn-primary" %>
+<div class="row mt-4">
+  <% @courses.each do |course| %>
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-header">
+          <strong><%= course.title %></strong>
+        </div>
+        <div class="card-body">
+          <p><%= course.description %></p>
+          <p>
+            <i class="fa fa-chalkboard-teacher"></i> <%= course.user %>
+          </p>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+          <%= link_to "Show", course, class: "btn btn-sm btn-secondary" %>
+          <%= link_to "Edit", edit_course_path(course), class: "btn btn-sm btn-warning" %>
+          <%= link_to "Destroy", course, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
