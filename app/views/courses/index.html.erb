@@ -20,6 +20,22 @@
           <p>
             <i class="fa fa-chalkboard-teacher"></i> <%= course.user %>
           </p>
+
+          <!-- Languages Field with Font Awesome icon -->
+          <% if course.languaes.present? %>
+            <p><i class="fa fa-language"></i> <strong>Languages:</strong> <%= course.languaes %></p>
+          <% end %>
+
+          <!-- Level Field with Font Awesome icon -->
+          <% if course.level.present? %>
+            <p><i class="fa fa-cogs"></i> <strong>Level:</strong> <%= course.level %></p>
+          <% end %>
+
+          <!-- Price Field with Font Awesome icon -->
+          <% if course.price.present? %>
+            <p><i class="fa fa-dollar-sign"></i> <strong>Price:</strong> <%= number_to_currency(course.price) %></p>
+          <% end %>
+
         </div>
         <div class="card-footer d-flex justify-content-between">
           <%= link_to "Show", course, class: "btn btn-sm btn-secondary" %>

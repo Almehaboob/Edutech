@@ -15,3 +15,46 @@
  @import "trix/dist/trix";
 
  */
+/* Center the container and control its width */
+.container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Style the page title */
+  .page-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Style the "Back to courses" button */
+  .back-link {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-back {
+    background-color: #28a745;
+  }
+  
+  .btn-back:hover {
+    background-color: #218838;
+  }
+  
