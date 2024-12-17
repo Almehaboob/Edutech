@@ -40,5 +40,7 @@
       </div>
     <% end %>
   </div>
+  <% if policy(user).edit?%>
   <%= link_to 'Edit roles', edit_user_path(user), class: 'btn btn-sm btn-warning' %>
+  <%end%>
 </div>

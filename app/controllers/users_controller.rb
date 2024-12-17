@@ -8,7 +8,9 @@ class UsersController < ApplicationController
 
     def edit
       @user = User.find(params[:id])
+      authorize @user
     end
+    
     
     def update
       @user = User.find(params[:id])
@@ -17,6 +19,7 @@ class UsersController < ApplicationController
       else
         render :edit
       end
+      authorize @user
     end
     
     private
