@@ -23,11 +23,16 @@
   </div>
 
   <!-- User Cards -->
-  <div class="card-columns mb-4">
-    <% @users.each do |user| %>
-      <%= render 'users/user', user: user %>
-    <% end %>
-  </div>
+ <div class="row">
+  <% @users.each do |user| %>
+    <div class="col-md-4 mb-4"> <!-- Each card takes 4/12 columns -->
+      <div class="card h-100 shadow-sm"> <!-- Optional shadow for visual appeal -->
+        <%= render 'users/user', user: user %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
 
   <!-- User Data Table -->
   <div class="table-responsive">

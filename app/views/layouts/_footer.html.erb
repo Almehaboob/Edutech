@@ -1,0 +1,22 @@
+<hr>
+<footer class="bg-dark text-white py-3">
+  <div class="container">
+    <div class="row">
+      <!-- Column 1: Copyright -->
+      <div class="col-md-4 mb-2">
+        <p>&copy; <%= Time.now.year %> CoursePlatform Sp. z o.o.</p>
+        <div class="d-flex align-items-center">
+          <i class="fa fa-envelope mr-2"></i>
+          <%= mail_to 'yashm@outlook.com', 'Contact Us', class: 'text-white' %>
+        </div>
+      </div>
+
+      <!-- Column 3: About Us -->
+      <div class="col-md-4 mb-2">
+        <h6>About Us</h6>
+        <%= link_to 'Teach on CoursePlatform', new_course_path, class: 'btn btn-sm btn-primary' %>
+      </div>
+    </div>
+  </div>
+</footer>
+<br>
