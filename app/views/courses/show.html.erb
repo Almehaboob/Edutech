@@ -1,26 +1,14 @@
-<p style="color: green"><%= notice %></p>
+<%= link_to 'Courses', courses_path %> |
+<%= link_to @course.title, course_path(@course) %>
+<p></p>
 
-<div class="card">
-  <div class="card-header">
-    <h2><%= @course.title %></h2>
+<div class="row">
+  <div class="col-lg-6">
+    <%= render 'courses/course', course: @course %>
   </div>
-  <div class="card-body">
-    <p><strong>Description:</strong></p>
-    <p><%= @course.description %></p>
-    <p>
-      <strong>Created By:</strong> <%= @course.user %>
-    </p>
-    <p>
-      <strong>Created At:</strong> <%= @course.created_at.strftime('%d-%b-%Y') %>
-    </p>
-  </div>
-  <div class="card-footer d-flex justify-content-between">
-    <div>
-      <%= link_to "Edit this course", edit_course_path(@course), class: "btn btn-primary" %>
-      <%= link_to "Back to courses", courses_path, class: "btn btn-secondary" %>
-    </div>
-    <div>
-      <%= link_to "Destroy", @course,  data: { turbo_method: :delete, confirm: "Are you sure?" }, class: "btn btn-danger" %>
-    </div>
+  <div class="col-lg-6">
+    <% @lessons.each do |lesson| %>
+      <%= render 'lessons/lesson', lesson: lesson %>
+    <% end %>
   </div>
 </div>

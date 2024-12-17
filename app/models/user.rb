@@ -11,6 +11,7 @@ class User < ApplicationRecord
 
   has_many :courses
   
+  
   # Allowable searchable attributes for Ransack
   def self.ransackable_attributes(auth_object = nil)
     ["email", "sign_in_count", "created_at", "current_sign_in_at", "current_sign_in_ip", "last_sign_in_at", "last_sign_in_ip"]
@@ -34,9 +35,15 @@ class User < ApplicationRecord
     end
 
   end
+  
+  def online?
+    updated_at > 2.minutes.ago
+  end
 
   validate :must_have_a_role, on: :update
   private
+
+
   def must_have_a_role
     unless roles.any?
       errors.add(:roles, "must have at least one role")

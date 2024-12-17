@@ -9,6 +9,8 @@ class CoursesController < ApplicationController
 
  
   def show
+    @lessons = @course.lessons
+    puts @lessons.inspect 
   end
 
   
