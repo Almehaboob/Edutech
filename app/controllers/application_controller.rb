@@ -4,13 +4,13 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user! 
   protect_from_forgery
   after_action :user_activity
-
+   
 
   include Pundit::Authorization
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-
+  include Pagy::Backend 
 
   def after_sign_in_path_for(resource)
     home_home_path # Replace with the actual named route of 'home/home'

@@ -10,7 +10,7 @@ class User < ApplicationRecord
   end
 
   has_many :courses
-  
+  has_many :enrollments 
   
   # Allowable searchable attributes for Ransack
   def self.ransackable_attributes(auth_object = nil)

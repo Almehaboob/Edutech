@@ -86,3 +86,38 @@
     font-size: 1em;
   }
   
+
+
+
+
+
+
+
+
+  .pagy-nav {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .pagy-nav .page-item {
+    margin: 0 5px;
+  }
+  
+  .pagy-nav .page-item a {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .pagy-nav .page-item.active a {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .pagy-nav .page-item.disabled a {
+    color: #ccc;
+  }
+  

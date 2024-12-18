@@ -1,10 +1,11 @@
 class CoursesController < ApplicationController
+  include Pagy::Backend  # Include Pagy for pagination
+
   before_action :set_course, only: %i[ show edit update destroy ]
 
-  
   def index
-    @q = Course.ransack(params[:q])  
-    @courses = @q.result(distinct: true)  
+    @q = Course.ransack(params[:q])
+    @pagy, @courses = pagy(@q.result(distinct: true))  # Pagy pagination
   end
 
  

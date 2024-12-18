@@ -1,6 +1,44 @@
-<h1>Editing lesson</h1>
+<%= link_to 'Courses', courses_path %> |
+<%= link_to @lesson.course.title, course_path(@lesson.course) %> |
+<%= link_to @lesson.title, course_lesson_path(@course, @lesson) %> |
+Editing lesson
 
-<%= render 'form' %>
+<p></p>
 
-<%= link_to 'Show lesson', course_lesson_path(@course, @lesson) %> |
-<%= link_to 'Back to course', course_path(@lesson.course) %>
+<div class="card">
+  <div class="card-header">
+    <h3>
+      <i class="far fa-check-square"></i>
+      Editing lesson
+    </h3>
+  </div>
+  <div class="card-body">
+    <%= render 'form' %>
+  </div>
+  <div class="card-footer">
+    <%= link_to 'Show lesson', course_lesson_path(@course, @lesson) %> |
+    <%= link_to 'Back to course', course_path(@lesson.course) %>
+  </div>
+</div>
+<%= link_to 'Courses', courses_path %> |
+<%= link_to @lesson.course.title, course_path(@lesson.course) %> |
+<%= link_to @lesson.title, course_lesson_path(@course, @lesson) %> |
+Editing lesson
+
+<p></p>
+
+<div class="card">
+  <div class="card-header">
+    <h3>
+      <i class="far fa-check-square"></i>
+      Editing lesson
+    </h3>
+  </div>
+  <div class="card-body">
+    <%= render 'form' %>
+  </div>
+  <div class="card-footer">
+    <%= link_to 'Show lesson', course_lesson_path(@course, @lesson) %> |
+    <%= link_to 'Back to course', course_path(@lesson.course) %>
+  </div>
+</div>

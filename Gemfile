@@ -27,6 +27,7 @@ gem 'public_activity'
 gem "rolify"
 gem 'pundit'
 gem 'friendly_id'
+gem 'pagy'
 
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
