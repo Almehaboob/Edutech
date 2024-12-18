@@ -3,7 +3,8 @@ class EnrollmentsController < ApplicationController
   before_action :set_course, only: [:new, :create]
 
   def index
-    @enrollments = Enrollment.all
+    # @enrollments = Enrollment.all
+    @pagy, @enrollments = pagy(Enrollment.all)
     authorize @enrollments
   end
 
@@ -52,7 +53,7 @@ class EnrollmentsController < ApplicationController
 
   private
     def set_course
-      # puts "qwertyuio----------------------------#{params}"
+      puts "qwertyuio----------------------------#{params}"
       @course = Course.find(params[:course_id])
 
     end

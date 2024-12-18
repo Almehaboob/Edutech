@@ -3,16 +3,25 @@
     <i class="fa fa-graduation-cap"></i>
     <%= link_to course.title, course_path(course) %>
   </div>
+  
   <div class="card-body">
     <small><%= simple_format(course.short_description) %></small>
   </div>
-  <div class="card-footer text-center">
-    <%= enrollment_button(course) %>
+  
+  <div class="card-footer">
+    <div class="text-center">
+      <%= enrollment_button(course) %>
+      <div class="row">
+        <%= review_button(course) %>
+      </div>
+    </div>
   </div>
+  
   <div class="card-footer">
     <i class="fa fa-tasks"></i>
     <%= course.lessons.count %>
   </div>
+  
   <div class="card-footer">
     <div class="row">
       <div class="col-md-6">
@@ -25,6 +34,7 @@
       </div>
     </div>
   </div>
+  
   <div class="card-footer">
     <div class="row">
       <div class="col-md-6">
@@ -37,15 +47,14 @@
       </div>
     </div>
   </div>
+  
   <% if current_user %>
     <% if policy(course).edit? %>
       <div class="card-footer">
         <%= link_to 'Edit', edit_course_path(course), class: 'btn btn-sm btn-warning' %>
-      </div>
-    <% end %>
-    <% if policy(course).destroy? %>
-      <div class="card-footer">
-        <%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+        <% if policy(course).destroy? %>
+          <%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+        <% end %>
       </div>
     <% end %>
   <% end %>

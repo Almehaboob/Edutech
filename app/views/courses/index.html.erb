@@ -72,4 +72,4 @@
     </div>
   <% end %>
 </div>
-<%= pagy_nav(@pagy) %>  <!-- Pagination links -->
+<%== pagy_nav(@pagy) if @pagy.pages > 1 %>  <!-- Pagination links -->

@@ -44,6 +44,8 @@
             <i class="fas fa-bell"></i> Activity
             <% end %>
             </li>
+      
+
             <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Another action</a></li>
             <li><a class="dropdown-item" href="#"><i class="fas fa-ellipsis-h"></i> Something else here</a></li>
           </ul>
@@ -56,6 +58,10 @@
             <i class="fas fa-user"></i> <%= current_user.email %>
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                  <%= link_to user_path(current_user), class: "dropdown-item" do %>
+            <i class="fa fa-user"></i>
+            <b>My profile</b>
+           <% end %>
             <li>
               <%= link_to edit_user_registration_path, class: 'dropdown-item' do %>
                 <i class="fas fa-cog"></i> Account Settings

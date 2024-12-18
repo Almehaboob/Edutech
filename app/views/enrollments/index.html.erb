@@ -1,37 +1,59 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title do %>
+  Corsego 
+  | 
+  All Enrollments
+<% end %>
 
-<% content_for :title, "Enrollments" %>
+<h3 class="text-center">
+  Enrollments
+  <span class="badge badge-info"><%= @enrollments.count %></span>
+</h3>
+<p></p>
 
-<h1>Enrollments</h1>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-sm">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th><i class="fa fa-user"></i> User</th>
+        <th><i class="fa fa-clock"></i> <i class="fa fa-lock-open"></i> Bought</th>
+        <th><i class="fa fa-graduation-cap"></i> Course</th>
+        <th><i class="fa fa-dollar-sign"></i> Price</th>
+        <th><i class="text-warning fa fa-clock"></i> Reviewed on</th>
+        <th><i class="text-warning fa fa-star"></i> Rating</th>
+        <th><i class="text-warning fa fa-comment"></i> Review</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
 
-<div class="m-3">
-  <%= link_to "New enrollment", new_enrollment_path, class: "btn btn-success" %>
+    <tbody>
+      <% @enrollments.each do |enrollment| %>
+        <tr>
+          <td><%= enrollment.id %></td>
+          <td><%= link_to enrollment.user, user_path(enrollment.user) %></td>
+          <td><%= enrollment.created_at.strftime("%d/%b/%Y, %H:%M") %></td>
+          <td><%= link_to enrollment.course, course_path(enrollment.course) %></td>
+          <td><%= number_to_currency(enrollment.price) %></td>
+          <td>
+            <% if enrollment.rating.present? %>
+              <%= enrollment.updated_at.strftime("%d/%b/%Y, %H:%M") %>
+            <% end %>
+          </td>
+          <td><%= enrollment.rating %></td>
+          <td><%= enrollment.review %></td>
+          <td><%= link_to 'See Review', enrollment %></td>
+          <td><%= link_to 'Add Review', edit_enrollment_path(enrollment) %></td>
+          <td><%= link_to 'Delete Enrollment', enrollment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
-<table class="table table-striped table-bordered mt-4">
-  <thead>
-    <tr>
-      <th>Course</th>
-      <th>User</th>
-      <th>Rating</th>
-      <th>Review</th>
-      <th>Price</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @enrollments.each do |enrollment| %>
-      <tr>
-        <td><%= enrollment.course %></td>
-        <td><%= enrollment.user %></td>
-        <td><%= enrollment.rating %></td>
-        <td><%= enrollment.review %></td>
-        <td><%= number_to_currency(enrollment.price) %></td>
-        <td>
-          <%= link_to "Show", enrollment, class: "btn btn-primary btn-sm" %> |
-          <%= link_to "Edit", edit_enrollment_path(enrollment), class: "btn btn-warning btn-sm" %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<br>
+<% unless current_page?(enrollments_path)%>
+<%= link_to 'New Enrollment', new_course_enrollment_path(course_id: @course.id) %>
+<%end%>
+<% pagy_bootstrap_nav(@pagy) %>
