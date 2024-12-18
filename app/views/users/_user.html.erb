@@ -35,14 +35,16 @@
   <div class="card-footer">
     Confirmed email?
     <% if user.confirmed_at.present? %>
-      <span class="badge badge-success">Yes</span>
+     <span class="text-success"><i class="fas fa-check-circle"></i> Yes</span>
+
     <% else %>
-      <span class="badge badge-danger">No</span>
+      <span class="text-danger"><i class="fas fa-times-circle"></i> No</span>
+
     <% end %>
   </div>
   <div class="card-footer">
     <% user.roles.each do |role| %>
-      <span class="badge badge-info"><%= role.name %></span>
+      <span class="btn btn-info rounded-pill px-3"><%= role.name %></span>
     <% end %>
     <% if policy(user).edit? %>
       <%= link_to 'Edit roles', edit_user_path(user), class: 'btn btn-sm btn-warning' %>
