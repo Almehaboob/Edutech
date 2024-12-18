@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
-  resources :enrollments
-  resources :lessons
-  resources :titles
+
   devise_for :users
-  resources :users, only: [:index,  :edit, :show, :update ]
-  
+  resources :enrollments
   resources :courses do
     resources :lessons
+    resources :enrollments, only: [:new, :create]
   end
+
+  resources :users, only: [:index, :edit, :show, :update]
   
   root "home#index"
   get 'home/home'
   get 'home/activity'
 
-end
+end   

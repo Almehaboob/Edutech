@@ -22,7 +22,10 @@ class Course < ApplicationRecord
     def self.ransackable_associations(auth_object = nil)
       ["user"]
     end
-
+    
+    def bought(user)
+      self.enrollments.where(user_id: [user.id], course_id: [self.id].empty?)
+    end
 
   end
   

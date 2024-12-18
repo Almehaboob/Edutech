@@ -4,9 +4,11 @@ class UsersController < ApplicationController
 
 
     def index
+      
       @users = User.all.order(created_at: :desc)
       @q = User.ransack(params[:q])
       @users = @q.result(distinct: true)
+      authorize @users
     end
 
     def show
@@ -30,6 +32,7 @@ class UsersController < ApplicationController
     end
      
     private
+    
   
     def set_user
       @user = User.find(params[:id])

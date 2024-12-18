@@ -7,10 +7,10 @@
     <small><%= simple_format(course.short_description) %></small>
   </div>
   <div class="card-footer text-center">
-    <%= number_to_currency(course.price) %>
+    <%= enrollment_button(course) %>
   </div>
   <div class="card-footer">
-    <i class="fa fa-book"></i>
+    <i class="fa fa-tasks"></i>
     <%= course.lessons.count %>
   </div>
   <div class="card-footer">
@@ -33,7 +33,7 @@
       </div>
       <div class="col-md-6 text-right">
         <i class="fa fa-chalkboard-teacher"></i>
-        <%= link_to course.user.email, user_path(course.user) %>
+        <%= link_to course.user.username, user_path(course.user) %>
       </div>
     </div>
   </div>
