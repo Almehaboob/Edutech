@@ -7,3 +7,6 @@ import "trix"
 import "@rails/actiontext"
 require("trix")
 require("@rails/actiontext")
+// import "chartkick"
+// import "Chart.bundle"
+// import "chartkick/chart.js"

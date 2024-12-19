@@ -8,6 +8,7 @@ class LessonsController < ApplicationController
   def show
     authorize @lesson
     current_user.view_lesson(@lesson)
+    
   end
 
   def new

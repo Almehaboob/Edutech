@@ -28,7 +28,8 @@ gem "rolify"
 gem 'pundit'
 gem 'friendly_id'
 gem 'pagy'
-
+gem "chartkick"
+gem 'groupdate'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"

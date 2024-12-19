@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   root "home#index"
   get 'home/home'
   get 'activity', to: 'home#activity'
+  get 'analytics', to: 'home#analytics'
 end
