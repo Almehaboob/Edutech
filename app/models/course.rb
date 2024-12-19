@@ -4,12 +4,13 @@ class Course < ApplicationRecord
     # Validations
     validates :title, :short_description, :price, :languaes, :level, presence: true
     validates :description, presence: true, length: { minimum: 5 }
+    
+    has_rich_text :description
 
     belongs_to :user, counter_cache: true
     has_many :lessons, dependent: :destroy
-    has_rich_text :description
     has_many :enrollments
-
+    has_many :user_lessons, through: :lessons
 
     scope :latest, -> { limit(3).order(created_at: :desc) }
     scope :top_rated, -> { limit(3).order(average_rating: :desc, created_at: :desc) }
@@ -30,6 +31,12 @@ class Course < ApplicationRecord
     
     def bought(user)
       self.enrollments.where(user_id: [user.id], course_id: [self.id]).empty?
+    end
+
+    def progress(user)
+      unless self.lessons_count == 0
+        user_lessons.where(user: user).count/self.lessons_count.to_f*100
+      end
     end
 
     def update_rating
