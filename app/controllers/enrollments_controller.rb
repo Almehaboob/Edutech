@@ -2,9 +2,17 @@ class EnrollmentsController < ApplicationController
   before_action :set_enrollment, only: [:show, :edit, :update, :destroy]
   before_action :set_course, only: [:new, :create]
 
+  def my_students
+    @ransack_path = my_students_enrollments_path  # Correct placement of the path
+    @q = Enrollment.joins(:course).where(courses: { user: current_user }).ransack(params[:q])
+    @pagy, @enrollments = pagy(@q.result.includes(:user))
+    render 'index'
+  end
+
   def index
-    # @enrollments = Enrollment.all
-    @pagy, @enrollments = pagy(Enrollment.all)
+    @ransack_path = enrollments_path  # Correct placement of the path
+    @q = Enrollment.ransack(params[:q]) # Fix: Initialize Ransack object
+    @pagy, @enrollments = pagy(@q.result.includes(:user, :course)) # Search, sort, and paginate
     authorize @enrollments
   end
 
@@ -21,7 +29,7 @@ class EnrollmentsController < ApplicationController
 
   def create
     if @course.price > 0
-      flash[:alert] = "You can not access paid courses yet."
+      flash[:alert] = "You cannot access paid courses yet."
       redirect_to new_course_enrollment_path(@course)
     else
       @enrollment = current_user.buy_course(@course)
@@ -52,10 +60,9 @@ class EnrollmentsController < ApplicationController
   end
 
   private
-    def set_course
-      puts "qwertyuio----------------------------#{params}"
-      @course = Course.find(params[:course_id])
 
+    def set_course
+      @course = Course.find(params[:course_id])
     end
 
     def set_enrollment

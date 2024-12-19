@@ -1,33 +1,64 @@
 <% content_for :title do %>
-  Corsego 
-  | 
-  All Enrollments
+  Corsego | All Enrollments
 <% end %>
 
 <h3 class="text-center">
   Enrollments
-  <span class="badge badge-info"><%= @enrollments.count %></span>
+  <span class="badge badge-info">
+    <%= @enrollments.count %>
+  </span>
 </h3>
+
 <p></p>
+
+<%= search_form_for @q, url: @ransack_path do |f| %>
+  <%= f.search_field :user_email_cont, placeholder: 'user email' %>
+  <%= f.search_field :course_title_cont, placeholder: 'course title' %>
+  <%= f.search_field :price_eq, placeholder: 'price' %>
+  <%= f.search_field :rating_eq, placeholder: 'rating' %>
+  <%= f.search_field :review_cont, placeholder: 'review' %>
+  <%= f.submit %>
+<% end %>
+
+<%= link_to 'refresh', @ransack_path %>
 
 <div class="table-responsive">
   <table class="table table-bordered table-striped table-sm">
     <thead>
       <tr>
         <th>ID</th>
-        <th><i class="fa fa-user"></i> User</th>
-        <th><i class="fa fa-clock"></i> <i class="fa fa-lock-open"></i> Bought</th>
-        <th><i class="fa fa-graduation-cap"></i> Course</th>
-        <th><i class="fa fa-dollar-sign"></i> Price</th>
-        <th><i class="text-warning fa fa-clock"></i> Reviewed on</th>
-        <th><i class="text-warning fa fa-star"></i> Rating</th>
-        <th><i class="text-warning fa fa-comment"></i> Review</th>
+        <th>
+          <%= sort_link(@q, :user_email) %>
+          <i class="fa fa-user"></i> User
+        </th>
+        <th>
+          <%= sort_link(@q, :created_at) %>
+          <i class="fa fa-clock"></i> <i class="fa fa-lock-open"></i> Bought
+        </th>
+        <th>
+          <%= sort_link(@q, :course_title) %>
+          <i class="fa fa-graduation-cap"></i> Course
+        </th>
+        <th>
+          <%= sort_link(@q, :price) %>
+          <i class="fa fa-dollar-sign"></i> Price
+        </th>
+        <th>
+          <%= sort_link(@q, :updated_at) %>
+          <span class="row text-warning"><i class="fa fa-clock"></i> Reviewed on</span>
+        </th>
+        <th>
+          <%= sort_link(@q, :rating) %>
+          <i class="text-warning fa fa-star"></i>
+        </th>
+        <th>
+          <i class="text-warning fa fa-comment"></i> Review
+        </th>
         <th></th>
         <th></th>
         <th></th>
       </tr>
     </thead>
-
     <tbody>
       <% @enrollments.each do |enrollment| %>
         <tr>
@@ -52,8 +83,5 @@
   </table>
 </div>
 
-<br>
-<% unless current_page?(enrollments_path)%>
-<%= link_to 'New Enrollment', new_course_enrollment_path(course_id: @course.id) %>
-<%end%>
 <% pagy_bootstrap_nav(@pagy) %>
+<br>

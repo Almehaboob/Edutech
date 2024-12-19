@@ -20,48 +20,112 @@
           <% end %>
         </li>
 
-        <li class="nav-item <%= 'active font-weight-bold' if current_page?(users_path) %>">
-        <%= link_to users_path, class: 'nav-link' do %>
-        <i class="fa fa-users"></i>
-         Users
-        <% end %>
-        </li>
-        <li class="nav-item <%= 'active font-weight-bold' if current_page?(enrollments_path) %>">
-          <%= link_to enrollments_path, class: 'nav-link' do %>
-            <i class="fa fa-lock-open"></i> Enrollments
-          <% end %>
-        </li>
-
-
-        <!-- Dropdown -->
+        <!-- Activity Dropdown -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fas fa-bars"></i> Dropdown
+          <a class="nav-link dropdown-toggle" href="#" id="activityDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-bars"></i> Activity
           </a>
-          <ul class="dropdown-menu">
-            <li class="nav-item">
-            <%= link_to home_activity_path, class: 'dropdown-item' do %>
-            <i class="fas fa-bell"></i> Activity
-            <% end %>
+          <ul class="dropdown-menu" aria-labelledby="activityDropdown">
+            <li>
+              <%= link_to enrollments_path, class: 'dropdown-item' do %>
+                <i class="fas fa-lock-open"></i> Enrollments
+              <% end %>
             </li>
-      
-
-            <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Another action</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fas fa-ellipsis-h"></i> Something else here</a></li>
+            <li>
+              <%= link_to users_path, class: 'dropdown-item' do %>
+                <i class="fas fa-users"></i> Users
+              <% end %>
+            </li>
+            <li>
+              <%= link_to activity_path, class: 'dropdown-item' do %>
+                <i class="fas fa-bell"></i> Activities
+              <% end %>
+            </li>
           </ul>
         </li>
 
         <% if current_user %>
+          <!-- Student Dropdown -->
+          <% if current_user.has_role?(:student) %>
+            <li class="nav-item dropdown">
+              <a id="studentDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-graduation-cap"></i> Learn
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="studentDropdown">
+                <%= link_to purchased_courses_path, class: "dropdown-item" do %>
+                  <i class="fa fa-graduation-cap"></i> Purchased Courses
+                <% end %>
+                <%= link_to pending_review_courses_path, class: "dropdown-item" do %>
+                  <i class="fa fa-star"></i> Pending Review
+                <% end %>
+              </div>
+            </li>
+          <% end %>
+
+
+
+
+        <!-- Teacher Dropdown -->
+     <% if current_user.has_role?(:teacher) %>
+  <li class="nav-item dropdown">
+    <a id="teacherDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fa fa-chalkboard-teacher"></i>
+      Teach
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="teacherDropdown">
+      <%= link_to new_course_path, class: "dropdown-item" do %>
+        <i class="fa fa-graduation-cap"></i>
+        <i class="fa fa-plus"></i>
+        New Course
+      <% end %>
+      <%= link_to created_courses_path, class: "dropdown-item" do %>
+        <i class="fa fa-graduation-cap"></i>
+        My courses
+      <% end %>
+      <%= link_to my_students_enrollments_path, class: "dropdown-item" do %>
+        <i class="fa fa-users"></i>
+        My students
+      <% end %>
+    </div>
+  </li>
+<% end %>
+
+
+        <!-- Admin Dropdown -->
+        <% if current_user.has_role?(:admin) %>
+          <li class="nav-item dropdown">
+            <a id="adminDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="fa fa-cog"></span>
+              Admin
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="adminDropdown">
+              <%= link_to users_path, class: "dropdown-item" do %>
+                <span class="fa fa-users"></span>
+                Users
+              <% end %>
+              <%= link_to enrollments_path, class: "dropdown-item" do %>
+                <span class="fa fa-lock-open"></span>
+                Enrollments
+              <% end %>
+              <%= link_to activity_path, class: "dropdown-item" do %>
+                <span class="fa fa-bell"></span>
+                Activity
+              <% end %>
+            </div>
+          </li>
+        <% end %>
+
         <!-- User Dropdown -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fas fa-user"></i> <%= current_user.email %>
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                  <%= link_to user_path(current_user), class: "dropdown-item" do %>
-            <i class="fa fa-user"></i>
-            <b>My profile</b>
-           <% end %>
+            <li>
+              <%= link_to user_path(current_user), class: "dropdown-item" do %>
+                <i class="fa fa-user"></i> My Profile
+              <% end %>
+            </li>
             <li>
               <%= link_to edit_user_registration_path, class: 'dropdown-item' do %>
                 <i class="fas fa-cog"></i> Account Settings
@@ -85,10 +149,10 @@
         <% end %>
       </ul>
 
-      <!-- Search Form -->
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">
+      <!-- Search Form at the End -->
+      <form class="d-flex ms-auto" role="search">
+        <input class="form-control form-control-sm me-2" type="search" placeholder="Search" aria-label="Search" style="max-width: 150px;">
+        <button class="btn btn-sm btn-outline-success" type="submit">
           <i class="fas fa-search"></i> Search
         </button>
       </form>

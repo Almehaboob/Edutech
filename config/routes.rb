@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :enrollments
+  resources :enrollments do
+    get :my_students, on: :collection
+  end
   resources :courses do
+    get :purchased, :pending_review, :created, on: :collection
     resources :lessons
     resources :enrollments, only: [:new, :create]  # This handles new and create actions for enrollments
   end
@@ -10,5 +13,5 @@ Rails.application.routes.draw do
 
   root "home#index"
   get 'home/home'
-  get 'home/activity'
+  get 'activity', to: 'home#activity'
 end

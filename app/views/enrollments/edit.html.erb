@@ -1,12 +1,40 @@
-<% content_for :title, "Editing enrollment" %>
+<% content_for :title, "Edit Enrollment" %>
 
-<h1>Editing enrollment</h1>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white text-center">
+          <h4 class="mb-0">
+            <i class="fa fa-edit"></i> Edit Enrollment
+          </h4>
+        </div>
+        <div class="card-body">
+          <%= form_with model: @enrollment, local: true, class: "needs-validation" do |f| %>
+            <div class="form-group">
+              <%= f.label :rating, "Rating", class: "form-label d-block" %>
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <% (1..5).each do |rating| %>
+                  <label class="btn btn-outline-primary <%= 'active' if @enrollment.rating == rating %>">
+                    <%= f.radio_button :rating, rating, checked: (@enrollment.rating == rating) %>
+                    <%= rating %>
+                  </label>
+                <% end %>
+              </div>
+            </div>
 
-<%= render "form", enrollment: @enrollment %>
+            <div class="form-group mt-3">
+              <%= f.label :review, "Review", class: "form-label" %>
+              <%= f.text_area :review, rows: 3, class: "form-control", placeholder: "Write your review here...", required: true %>
+            </div>
 
-<br>
-
-<div>
-  <%= link_to "Show this enrollment", @enrollment %> |
-  <%= link_to "Back to enrollments", enrollments_path %>
+            <div class="d-flex justify-content-between mt-3">
+              <%= link_to "Back", enrollments_path, class: "btn btn-secondary btn-sm" %>
+              <%= f.submit "Save", class: "btn btn-primary btn-sm" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

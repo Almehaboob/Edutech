@@ -1,36 +1,52 @@
 class CoursesController < ApplicationController
   include Pagy::Backend  # Include Pagy for pagination
 
-  before_action :set_course, only: %i[ show edit update destroy ]
+  before_action :set_course, only: %i[show edit update destroy]
 
   def index
     @q = Course.ransack(params[:q])
     @pagy, @courses = pagy(@q.result(distinct: true))  # Pagy pagination
+    @ransack_path = courses_path  # Correct place to set the path
   end
 
- 
   def show
     @lessons = @course.lessons
-    puts @lessons.inspect 
+    puts @lessons.inspect
   end
 
-  
+  def purchased
+    @ransack_path = purchased_courses_path  # Set path for purchased courses
+    @ransack_courses = Course.joins(:enrollments).where(enrollments: { user: current_user }).ransack(params[:courses_search], search_key: :courses_search)
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    render 'index'
+  end
+
+  def pending_review
+    @ransack_path = pending_review_courses_path  # Set path for pending review courses
+    @ransack_courses = Course.joins(:enrollments).merge(Enrollment.pending_review.where(user: current_user)).ransack(params[:courses_search], search_key: :courses_search)
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    render 'index'
+  end
+
+  def created
+    @ransack_path = created_courses_path  # Set path for created courses
+    @ransack_courses = Course.where(user: current_user).ransack(params[:courses_search], search_key: :courses_search)
+    @pagy, @courses = pagy(@ransack_courses.result.includes(:user))
+    render 'index'
+  end
+
   def new
-    
     @course = Course.new
     authorize @course
   end
 
-  
   def edit
     authorize @course
   end
 
-
   def create
-    
     @course = Course.new(course_params)
-    @course.user=current_user
+    @course.user = current_user
     respond_to do |format|
       if @course.save
         format.html { redirect_to @course, notice: "Course was successfully created." }
@@ -56,7 +72,6 @@ class CoursesController < ApplicationController
     end
   end
 
-
   def destroy
     authorize @course
     @course.destroy!
@@ -68,12 +83,11 @@ class CoursesController < ApplicationController
   end
 
   private
-    def set_course
-      @course = Course.find(params[:id])
-    end
+  def set_course
+    @course = Course.find(params[:id])
+  end
 
-    
-    def course_params
-      params.require(:course).permit(:title, :description, :short_description, :price, :languaes, :level )
-    end
+  def course_params
+    params.require(:course).permit(:title, :description, :short_description, :price, :languages, :level)
+  end
 end
