@@ -49,7 +49,6 @@
   </div>
 </div>
 
-
 <!-- Display Courses -->
 <div class="row">
   <% @courses.each do |course| %>
@@ -83,6 +82,19 @@
               <i class="fa fa-dollar-sign"></i> <strong>Price:</strong> <%= number_to_currency(course.price) %>
             </p>
           <% end %>
+
+            <!-- Rating Display (Stars) -->
+  <% if course.average_rating.present? %>
+    <p>
+      <strong>Rating:</strong>
+      <% (1..5).each do |i| %>
+        <i class="fa <%= 'fa-star text-warning' if i <= course.average_rating %> <%= 'fa-star-o' if i > course.average_rating %>"></i>
+      <% end %>
+      <span class="ml-2"><%= number_with_precision(course.average_rating, precision: 1) %></span>
+    </p>
+  <% else %>
+    <p><strong>Rating:</strong> Not yet rated</p>
+  <% end %>
         </div>
         <div class="card-footer p-2 d-flex justify-content-between">
           <%= link_to "Show", course, class: "btn btn-sm btn-outline-secondary" %>

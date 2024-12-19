@@ -80,7 +80,7 @@ require 'pagy/extras/bootstrap'
 # per instance by just passing them to Pagy.new or the #pagy controller method
 # Instance variables
 # See https://ddnexus.github.io/pagy/api/pagy#instance-variables
-Pagy::DEFAULT[:limit] = 8                               # default
+Pagy::DEFAULT[:limit] = 100                              # default
 # Other Variables
 # See https://ddnexus.github.io/pagy/api/pagy#other-variables
 # Pagy::VARS[:size]       = [1,4,4,1]                       # default
