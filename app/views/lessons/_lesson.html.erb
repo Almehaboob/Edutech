@@ -1,21 +1,27 @@
 <div class="card">
   <div class="card-header">
+    <!-- Check if the lesson has been viewed by the current user -->
+    <% if lesson.viewed(current_user) == true %>
+      <span class="text-success far fa-check-square"></span> <!-- VIEWED -->
+    <% else %>
+      <span class="text-danger far fa-check-square"></span> <!-- NOT VIEWED -->
+    <% end %>
+
+    <!-- Link to the lesson's page -->
     <%= link_to lesson.title, course_lesson_path(@course, lesson) %>
   </div>
 
   <% if policy(lesson).show? %>
     <div class="card-body">
-      <%= lesson.content %>
-      <%= lesson.course %>
+      <%= lesson.content %> <!-- Display lesson content if the user is authorized -->
     </div>
   <% end %>
 
   <% if policy(lesson).edit? %>
     <div class="card-footer">
+      <!-- Edit and delete links if the user is authorized to edit the lesson -->
       <%= link_to 'Edit', edit_course_lesson_path(@course, lesson), class: 'btn btn-sm btn-warning' %>
       <%= link_to 'Destroy', [@course, lesson], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
     </div>
   <% end %>
 </div>
-
-<p></p>
