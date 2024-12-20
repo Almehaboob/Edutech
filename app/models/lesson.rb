@@ -17,6 +17,9 @@ class Lesson < ApplicationRecord
     #self.user_lessons.where(user_id: [user.id], lesson_id: [self.id]).present
   end
 
+  include RankedModel
+  ranks :row_order, :with_same => :course_id
+
 
   def to_s
     title

@@ -30,6 +30,9 @@ gem 'friendly_id'
 gem 'pagy'
 gem "chartkick"
 gem 'groupdate'
+gem 'rails-erd', group: :development
+gem 'ranked-model'
+
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
