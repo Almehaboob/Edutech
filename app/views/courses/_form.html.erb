@@ -1,6 +1,4 @@
-
-<%= simple_form_for(@course) do |f| %>
-
+<%= simple_form_for(@course, html: { multipart: true }) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
@@ -8,13 +6,15 @@
     <%= f.input :title %>
     <%= f.input :description, as: :rich_text_area %>
     <%= f.input :short_description %>
-    <%= f.input :languaes, collection:["english", "spanish", "malayalam"]  %>
-    <%= f.input :level, collection:["beginner", "intermediate", "advanced"] %>
+    <%= f.input :languaes, collection: ["english", "spanish", "malayalam"] %>
+    <%= f.input :level, collection: ["beginner", "intermediate", "advanced"] %>
     <%= f.input :price %>
 
+    <!-- Add input for image URL -->
+    <%= f.input :image_url, label: "Course Image URL" %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, class: 'btn btn-primary' %>
   </div>
 <% end %>
